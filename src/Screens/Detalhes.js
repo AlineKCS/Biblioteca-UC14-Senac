@@ -2,10 +2,6 @@ import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native'
 import Icon from "react-native-vector-icons/FontAwesome";
 import DatabaseBiblioteca from '../Database/DatabaseBiblioteca';
-import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
-
-
-
 
 export default function Detalhes({ route }) {
 
@@ -16,14 +12,7 @@ export default function Detalhes({ route }) {
         banco.Concluir(id);
     }
 
-
-
-    Excluir = (id) => {
-        const banco = new DatabaseBiblioteca();
-        banco.Excluir(id);
-    }
-
-    const getStyle = () => {
+    const getEstilo = () => {
         if (data.Status == "Pendente") {
             return { color: "#FF8000" }
         }
@@ -31,26 +20,40 @@ export default function Detalhes({ route }) {
             return { color: "#058105" }
         }
     }
-    const LeftContent = props => <Avatar.Icon {...props} icon="book" style={getStyle()} />
+
+    Excluir = (id) => {
+        const banco = new DatabaseBiblioteca();
+        banco.Excluir(id);
+    }
 
     return (
 
         <ScrollView>
 
-            
-         
-            <Card>
+            <View style={{ borderWidth: 1, margin: 10, color: "gray", borderRadius: 10 }}>
 
-                <Card.Title title={data.Titulo} subtitle={data.Autor} left={LeftContent} />
-                <Card.Content>
-                  
-                </Card.Content>
-                <Card.Cover source={{ uri: data.Imagem }}  />
-                <Card.Actions>
-                    <Button  onPress={() => { MarcarComoLido(data.Id) }} >Marcar Como Lido</Button>
-                    <Button onPress={() => { Excluir(data.Id) }}>Excluir</Button>
-                </Card.Actions>
-            </Card>
+                <View style={{ margin: 15, marginBottom: 0 }}>
+                    <Text style={[{ textAlign: "left", fontSize: 16 }, getEstilo()]}><Icon name="book" size={20} />  {data.Status}</Text>
+                </View>
+
+                <View style={style.container}>
+
+                    <Text style={style.titulo}>{data.Titulo} - {data.Autor}</Text>
+                    <Image style={style.imagem} source={{ uri: data.Imagem }} />
+                    <Text style={{ margin: 10 }}>Ano de Lançamento: {data.Ano}</Text>
+                    <Text style={{ margin: 10, textAlign: "justify" }}>{data.Descricao}</Text>
+
+                    <View style={{ flex: 1, justifyContent: "space-evenly", flexDirection: "row" }}>
+                        <TouchableOpacity style={[style.botoes, { backgroundColor: "#FF8000" }]} onPress={() => { MarcarComoLido(data.Id) }}>
+                            <Text style={{ color: "white", fontWeight: "bold" }}>Marcar Como Lido</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[style.botoes, { backgroundColor: "#F49336" }]} onPress={() => { Excluir(data.Id) }}>
+                            <Text style={{ color: "white", fontWeight: "bold" }}>Excluir</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                </View>
+            </View>
         </ScrollView>
     )
 }
