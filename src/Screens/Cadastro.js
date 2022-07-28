@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { View, Text, TextInput, StyleSheet, Button, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Livro from "../Models/Livro";
 import DatabaseBiblioteca from "../Database/DatabaseBiblioteca";
+import { TextInput, Button, Divider } from 'react-native-paper';
 
 export default class Cadastro extends Component {
   constructor(props) {
@@ -27,18 +28,52 @@ export default class Cadastro extends Component {
     return (
       <ScrollView>
         <View style={style.container}>
-          <Text style={{ marginVertical: 5 }}>Para cadastrar um livro preencha o formulário abaixo:</Text>
-          <Text>Título:</Text>
-          <TextInput onChangeText={(valorDigitado) => { this.setState({ Titulo: valorDigitado }) }} style={style.input} />
-          <Text>Autor:</Text>
-          <TextInput onChangeText={(valorDigitado) => { this.setState({ Autor: valorDigitado }) }} style={style.input} />
-          <Text>Ano de lançamento:</Text>
-          <TextInput onChangeText={(valorDigitado) => { this.setState({ Ano: valorDigitado }) }} style={style.input} />
-          <Text>Descrição:</Text>
-          <TextInput onChangeText={(valorDigitado) => { this.setState({ Descricao: valorDigitado }) }} style={style.input} />
-          <Text>Imagem:</Text>
-          <TextInput onChangeText={(valorDigitado) => { this.setState({ Imagem: valorDigitado }) }} style={style.input} placeholder="Digite a url da imagem" />
-          <Button color="#FF8000" onPress={() => this.Cadastrar(this.state.Titulo, this.state.Autor, this.state.Ano, this.state.Descricao, this.state.Imagem, "Pendente")} title="Salvar" />
+        <Text style={{ margin: 5 }}>Preencha o formulário com os dados do livro:</Text>
+        <Divider/>
+          <TextInput
+            label="Título"
+            onChangeText={(valorDigitado) => { this.setState({ Titulo: valorDigitado }) }}
+            mode="outlined"
+            style={style.input}
+            activeOutlineColor="#F3717F"
+            outlineColor="#E7E7E7"
+          />
+          <TextInput
+            label="Autor"
+            onChangeText={(valorDigitado) => { this.setState({ Autor: valorDigitado }) }}
+            mode="outlined"
+            style={style.input}
+            activeOutlineColor="#F3717F"
+            outlineColor="#E7E7E7"
+          />
+          <TextInput
+            label="Ano"
+            onChangeText={(valorDigitado) => { this.setState({ Ano: valorDigitado }) }}
+            mode="outlined"
+            style={style.input}
+            activeOutlineColor="#F3717F"
+            outlineColor="#E7E7E7"
+          />
+          <TextInput
+            label="Descrição"
+            onChangeText={(valorDigitado) => { this.setState({ Descricao: valorDigitado }) }}
+            mode="outlined"
+            style={style.input}
+            activeOutlineColor="#F3717F"
+            outlineColor="#E7E7E7"
+          />
+          <TextInput
+            label="Imagem da Capa"
+            onChangeText={(valorDigitado) => { this.setState({ Imagem: valorDigitado }) }}
+            mode="outlined"
+            style={style.input}
+            activeOutlineColor="#F3717F"
+            outlineColor="#E7E7E7"
+            placeholder="Digite a url da imagem"
+          />
+          <Button style={style.button} icon="content-save" mode="contained" onPress={() => this.Cadastrar(this.state.Titulo, this.state.Autor, this.state.Ano, this.state.Descricao, this.state.Imagem, "Pendente")}>
+            Salvar
+          </Button>
         </View>
       </ScrollView>
     )
@@ -51,8 +86,14 @@ const style = StyleSheet.create({
   },
 
   input: {
-    backgroundColor: "#E5E5E5",
-    marginVertical: 5
+    backgroundColor: "#E7E7E7",
+    marginVertical: 5,
+    height: 40
+  },
+  
+  button:{
+    backgroundColor: "#F3717F",
+    marginTop: 5 
   }
 
 })
