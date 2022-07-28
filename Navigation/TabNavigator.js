@@ -5,8 +5,6 @@ import Cadastro from "../src/Screens/Cadastro";
 import Home from "../src/Screens/Home";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-
-
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigator() {
@@ -25,13 +23,15 @@ export default function TabNavigator() {
                       
                 }
 
-
                 return <Icon name={iconName} size={size} color={color} />;
             },
 
-            tabBarActiveTintColor: '#171717',
-            tabBarInactiveTintColor: '#5B3508',
+            tabBarActiveTintColor: '#FAB193',
+            tabBarInactiveTintColor: '#B1CBE0',          
+            tabBarStyle: { borderTopWidth: 0 }
+
         })}
+
         >
             <Tab.Screen name="Home" component={Home}/>
             <Tab.Screen name="Cadastro" component={Cadastro} />

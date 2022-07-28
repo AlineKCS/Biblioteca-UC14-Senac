@@ -1,19 +1,18 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { List, Button, Divider } from 'react-native-paper';
 
 export default function ListaLivros({ item, navigation }) {
 
     return (
         <ScrollView  >
-            <List.Item
-            
-                title={item.Titulo + " - " + item.Autor} 
-                description = "Clique para mais detalhes"
-                left={props => <List.Icon {...props} icon="book" /> }
+            <List.Item            
+                title={item.Titulo} 
+                description = {item.Autor} 
+                left={props => <Icon {...props} name="book" size={30} style={{color: "#F3717F", margin: 10}} /> }
                 onPress={() => navigation.navigate('Detalhes', { data: item })}
-              
+                style={{color: "#325C80"}}             
             />
            <Divider/>
         </ScrollView>
@@ -21,12 +20,6 @@ export default function ListaLivros({ item, navigation }) {
 }
 
 const style = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding: 15,
-    },
     dados: {
         width: 200, height: 20,
         marginBottom: 5,
