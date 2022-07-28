@@ -1,9 +1,10 @@
 /* eslint-disable no-undef */
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, Text } from 'react-native';
 import DatabaseBiblioteca from '../Database/DatabaseBiblioteca';
 import ListaLivros from '../Components/ListaLivros';
+import { Divider } from 'react-native-paper';
 
 export default class Estante extends Component {
 
@@ -28,6 +29,8 @@ export default class Estante extends Component {
   render() {
     return (
       <View>
+        <Text style={{margin: 10, marginLeft: 20}}>Clique no título dos livros para mais detalhes.</Text>
+        <Divider/>
         <FlatList
           data={this.state.dadosBanco}
           renderItem={({ item }) => ListaLivros({ item, navigation })}
