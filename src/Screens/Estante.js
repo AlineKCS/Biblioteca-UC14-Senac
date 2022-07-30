@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
 import { View, FlatList, Text } from 'react-native';
 import DatabaseBiblioteca from '../Database/DatabaseBiblioteca';
