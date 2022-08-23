@@ -1,7 +1,9 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native'
-import Icon from "react-native-vector-icons/FontAwesome";
-import DatabaseBiblioteca from '../Database/DatabaseBiblioteca';
+import { View, Text, StyleSheet, ScrollView, Image } from 'react-native'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
+import DatabaseBiblioteca from '../Database/DatabaseBiblioteca'
+import { Divider, Surface, Button } from 'react-native-paper'
 
 export default function Detalhes({ route }) {
 
@@ -12,14 +14,17 @@ export default function Detalhes({ route }) {
         banco.Concluir(id);
     }
 
-    const getEstilo = () => {
+    getIcon = () => {
+         
         if (data.Status == "Pendente") {
-            return { color: "#FF8000" }
+            return <Text style={{ textAlign: "center", fontSize: 20, color: "#FF8000" }}><Icon2 name="dots-horizontal-circle-outline" size={18} />  {data.Status} </Text>
         }
         else {
-            return { color: "#058105" }
+            return <Text style={{ textAlign: "center", fontSize: 18, color: "#058105" }}><Icon name="check" size={20} />  {data.Status} </Text>
         }
     }
+
+
 
     Excluir = (id) => {
         const banco = new DatabaseBiblioteca();
@@ -29,60 +34,87 @@ export default function Detalhes({ route }) {
     return (
 
         <ScrollView>
+            <Surface style={style.surface} elevation={4}>
+                <View style={style.tituloContainer}>
 
-            <View style={{ borderWidth: 1, margin: 10, color: "gray", borderRadius: 10 }}>
+                    <Text style={style.titulo}>{data.Titulo}</Text>
+                    {getIcon()}
 
-                <View style={{ margin: 15, marginBottom: 0 }}>
-                    <Text style={[{ textAlign: "left", fontSize: 16 }, getEstilo()]}><Icon name="book" size={20} />  {data.Status}</Text>
                 </View>
 
-                <View style={style.container}>
+                <Divider style={{height: 2}}/>
 
-                    <Text style={style.titulo}>{data.Titulo} - {data.Autor}</Text>
-                    <Image style={style.imagem} source={{ uri: data.Imagem }} />
-                    <Text style={{ margin: 10 }}>Ano de Lançamento: {data.Ano}</Text>
-                    <Text style={{ margin: 10, textAlign: "justify" }}>{data.Descricao}</Text>
+                <View >
+                    <View style={{ alignItems: "center", marginHorizontal:5 }}>
 
-                    <View style={{ flex: 1, justifyContent: "space-evenly", flexDirection: "row" }}>
-                        <TouchableOpacity style={[style.botoes, { backgroundColor: "#FF8000" }]} onPress={() => { MarcarComoLido(data.Id) }}>
-                            <Text style={{ color: "white", fontWeight: "bold" }}>Marcar Como Lido</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[style.botoes, { backgroundColor: "#F49336" }]} onPress={() => { Excluir(data.Id) }}>
-                            <Text style={{ color: "white", fontWeight: "bold" }}>Excluir</Text>
-                        </TouchableOpacity>
+                        <Image style={style.imagem} source={{ uri: data.Imagem }} />
+                        <Text style={style.author}>{data.Autor}</Text>
+                        <Text style={{ margin: 5, color: "#345d73" }}>Ano de Lançamento: {data.Ano}</Text>
+                        <Text style={style.description}>{data.Descricao}</Text>
+                        
+                    </View>
+                    <Divider style={{height: 2}}/>
+                    <View style={style.buttons}>
+
+                        <Button style={{ margin: 5 }} mode="text" color="#F3717F" compact={true} onPress={() => { MarcarComoLido(data.Id)} } >
+                            Marcar Como Lido
+                        </Button>
+                        <Button style={{margin: 5 }}  mode="text" color="#F3717F" compact={true} onPress={() => { Excluir(data.Id) }}>
+                            Excluir
+                        </Button>
+
                     </View>
 
                 </View>
-            </View>
+            </Surface>
         </ScrollView>
     )
 }
 
 const style = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: "center",
-        padding: 10
-    },
+    
+  tituloContainer: {
+    margin: 5,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
 
-    titulo: {
-        margin: 10,
-        fontSize: 20
-    },
+  titulo: {
+    fontSize: 18,
+    marginLeft: 5,
+    color: '#345d73',
+    fontWeight: 'bold',
+  },
 
-    imagem: {
-        width: 120, height: 200,
-        margin: 10,
-        borderRadius: 5
-    },
+  description: {
+    margin: 10,
+    textAlign: 'justify',
+  },
 
-    botoes: {
-        width: 140,
-        height: 30,
-        margin: 5,
-        marginLeft: 0,
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: 5
-    }
-})
+  imagem: {
+    width: 120,
+    height: 200,
+    margin: 10,
+    borderRadius: 5,
+  },
+
+  author: {
+    margin: 5,
+    color: '#345d73',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+
+  buttons: {
+    flex: 1,
+    justifyContent: 'space-evenly',
+    flexDirection: 'row',
+    marginHorizontal: 5,
+  },
+
+  surface: {
+    padding: 8,
+    margin: 10,
+  },
+});
